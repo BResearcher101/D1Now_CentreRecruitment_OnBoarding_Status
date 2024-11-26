@@ -3,13 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recruitment and Onboarding Tracker</title>
+    <title>Recruitment and Clinic Tracker</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Inline CSS in case you don't want to use an external styles.css file */
+        .progress-bar {
+            width: 100%;
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+        }
+        .progress {
+            height: 20px;
+            background: green;
+            width: 0%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
     <h1>Recruitment and Clinic Onboarding Progress</h1>
-    <div id="recruitment-chart"></div>
-    <div id="clinic-progress"></div>
-    <script src="script.js"></script>
+
+    <!-- Recruitment Progress -->
+    <h2>Recruitment Progress</h2>
+    <div class="progress-bar">
+        <div class="progress" id="recruitment-progress"></div>
+    </div>
+
+    <!-- Clinic List -->
+    <h2>Clinics</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Clinic Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="clinic-table-body">
+            <!-- Rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <!-- JavaScript -->
+    <script>
+        // Fetch the JSON data
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Update the recruitment progress bar
+                const progressBar = document.getElementById('recruitment-progress');
+                const progressPercent = (data.recruitment.current / data.recruitment.total) * 100;
+                progressBar.style.width = progressPercent + '%';
+                progressBar.textContent = progressPercent.toFixed(1) + '%';
+
+                // Populate the clinic table
+                const clinicTableBody = document.getElementById('clinic-table-body');
+                data.clinics.forEach(clinic => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${clinic.name}</td><td>${clinic.status}</td>`;
+                    clinicTableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error loading JSON data:', error));
+    </script>
 </body>
 </html>
