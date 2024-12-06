@@ -13,7 +13,7 @@
             "rec": "SJH REC",
             "interestReceived": "2024-07-03 00:00:00",
             "surveyCompleted": "",
-            "deadline": "No deadline. Meetings 22 January 2025\n26 February 2025"
+            "deadline": "01/22\n02/26\n Meetings dates. No Deadline"
         },
         {
             "name": "St James's Hospital",
@@ -23,7 +23,7 @@
             "rec": "SJH REC",
             "interestReceived": "",
             "surveyCompleted": "2024-11-21",
-            "deadline": "No deadline. Meetings 22 January 2025\n26 February 2025"
+            "deadline": "01/22\n02/26\n Meetings dates. No Deadline"
         },
         {
             "name": "Mater Misericordiae University Hospital",
@@ -43,7 +43,7 @@
             "rec": "SVH REC",
             "interestReceived": "",
             "surveyCompleted": "2024-11-08",
-            "deadline": "9th December \u2013 16th January"
+            "deadline": "12/09 \u2013 01/16"
         },
         {
             "name": "Beaumont Hospital",
@@ -53,7 +53,7 @@
             "rec": "Beaumont REC",
             "interestReceived": "2024-07-12 00:00:00",
             "surveyCompleted": "2024-11-20",
-            "deadline": "3rd January 2025 - 10th January 2025\n31st January 2025 - 7th February 2025"
+            "deadline": "01/03 - 01/10\n01/31 - 02/07"
         },
         {
             "name": "University College Hospital Galway",
@@ -73,7 +73,7 @@
             "rec": "CREC",
             "interestReceived": "2024-07-09 00:00:00",
             "surveyCompleted": "2024-08-26",
-            "deadline": "07/01/2025 - 21/01/2025 |"
+            "deadline": "01/07 - 01/21"
         },
         {
             "name": "University Hospital Waterford",
@@ -83,7 +83,7 @@
             "rec": "HSE SE Area REC ",
             "interestReceived": "2024-07-17 00:00:00",
             "surveyCompleted": "2024-09-10",
-            "deadline": "1 January 2025 & 29th Jan"
+            "deadline": "01./01 & 01/29"
         },
         {
             "name": "University Hospital Limerick",
@@ -200,10 +200,10 @@
             "location": "Sligo",
             "model": "Model 3",
             "group": "Saolta",
-            "rec": "",
+            "rec": "Sligo REC",
             "interestReceived": "2024-07-03 00:00:00",
             "surveyCompleted": "2024-09-05",
-            "deadline": "16th January 2025/20th March 2025"
+            "deadline": "01/16 & 03/20"
         },
         {
             "name": "Letterkenny University Hospital",
@@ -283,7 +283,7 @@
             "rec": "SVH REC",
             "interestReceived": "2024-06-05 00:00:00",
             "surveyCompleted": "2024-08-26",
-            "deadline": "9th December \u2013 16th January"
+            "deadline": "12/09 \u2013 01/16"
         }
     ]
 }
