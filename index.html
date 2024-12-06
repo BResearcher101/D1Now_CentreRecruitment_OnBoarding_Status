@@ -3,23 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centre Onboarding Progress Tracker</title>
+    <title>Centre Onboarding and REC Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Basic Styles */
-        .dashboard {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-        .dashboard-item {
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            width: 30%;
-            background-color: #f9f9f9;
-        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -28,20 +15,18 @@
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
         th {
             background-color: #f4f4f4;
         }
-        .docs-list {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
+        td {
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <h1>Centre Onboarding Progress Tracker</h1>
+    <h1>Centre Onboarding and REC Tracker</h1>
 
     <!-- Dashboard Summary -->
     <div class="dashboard">
@@ -76,65 +61,47 @@
 
     <!-- REC Details Table -->
     <h2>Research Ethics Committees (RECs) Overview</h2>
-    <table id="rec-table">
+    <table id="rec-overview-table">
         <thead>
             <tr>
-                <th>Centre Name</th>
-                <th>REC Name</th>
-                <th>Submission Deadlines</th>
-                <th>REC Webpage</th>
-                <th>Documents Required</th>
+                <th>Required Documents</th>
+                <th>Beaumont Hospital Ethics</th>
+                <th>Cork University Hospital</th>
+                <th>Galway University Hospitals</th>
+                <th>University Hospital Waterford</th>
+                <th>University Hospital Limerick</th>
+                <th>Midland Regional Hospital</th>
+                <th>SJH/TUH Joint REC</th>
             </tr>
         </thead>
-        <tbody id="rec-table-body">
+        <tbody id="rec-overview-body">
             <!-- Dynamic rows will be added here -->
         </tbody>
     </table>
 
     <!-- JavaScript -->
     <script>
-        // Fetch data for the first table
-        fetch('centre_onboarding_data.json')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('centre-table-body');
-                const totalCount = data.centres.length;
-                const completedCount = data.centres.filter(centre => centre.surveyCompleted !== "").length;
-
-                document.getElementById('total-centres').textContent = totalCount;
-                document.getElementById('completed').textContent = completedCount;
-
-                data.centres.forEach(centre => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${centre.name}</td>
-                        <td>${centre.location}</td>
-                        <td>${centre.model}</td>
-                        <td>${centre.group}</td>
-                        <td>${centre.rec}</td>
-                        <td>${centre.surveyCompleted || 'N/A'}</td>
-                        <td>${centre.deadline}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error loading Centre data:', error));
-
-        // Fetch data for the second table (REC details)
+        // Fetch REC JSON data and populate the table
         fetch('rec_details.json')
             .then(response => response.json())
             .then(data => {
-                const tableBody = document.getElementById('rec-table-body');
+                // Extract unique document names
+                const documentSet = new Set();
                 data.recs.forEach(rec => {
+                    rec.documentsRequired.forEach(doc => documentSet.add(doc));
+                });
+                const documents = Array.from(documentSet);
+
+                // Create table rows dynamically
+                const tableBody = document.getElementById('rec-overview-body');
+                documents.forEach(doc => {
                     const row = document.createElement('tr');
-                    const docsList = rec.documentsRequired.map(doc => `<li>${doc}</li>`).join('');
-                    row.innerHTML = `
-                        <td>${rec.centreName}</td>
-                        <td>${rec.recName}</td>
-                        <td>${rec.submissionDeadlines.join('<br>')}</td>
-                        <td>${rec.recWebpage !== 'Not available' ? `<a href="${rec.recWebpage}" target="_blank">Link</a>` : 'Not available'}</td>
-                        <td><ul class="docs-list">${docsList}</ul></td>
-                    `;
+                    row.innerHTML = `<td>${doc}</td>`;
+                    data.recs.forEach(rec => {
+                        const cell = document.createElement('td');
+                        cell.textContent = rec.documentsRequired.includes(doc) ? '*' : '';
+                        row.appendChild(cell);
+                    });
                     tableBody.appendChild(row);
                 });
             })
