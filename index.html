@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centre Onboarding and REC Tracker</title>
+    <title>Centre Onboarding Progress Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Basic Styles */
+        /* Basic Styles for Visualisation */
+        .dashboard {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .dashboard-item {
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            width: 30%;
+            background-color: #f9f9f9;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -15,18 +28,16 @@
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: center;
+            text-align: left;
+            cursor: pointer; /* Pointer for sortable columns */
         }
         th {
             background-color: #f4f4f4;
         }
-        td {
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
-    <h1>Centre Onboarding and REC Tracker</h1>
+    <h1>Centre Onboarding Progress Tracker</h1>
 
     <!-- Dashboard Summary -->
     <div class="dashboard">
@@ -45,13 +56,13 @@
     <table id="centre-table">
         <thead>
             <tr>
-                <th>Centre Name</th>
-                <th>Location</th>
-                <th>Model</th>
-                <th>Trust/Group</th>
-                <th>REC</th>
-                <th>Scoping Survey Completed</th>
-                <th>Application Deadline</th>
+                <th data-column="name">Centre Name</th>
+                <th data-column="location">Location</th>
+                <th data-column="model">Model</th>
+                <th data-column="group">Trust/Group</th>
+                <th data-column="rec">REC</th>
+                <th data-column="surveyCompleted">Scoping Survey Completed</th>
+                <th data-column="deadline">Application Deadline</th>
             </tr>
         </thead>
         <tbody id="centre-table-body">
@@ -59,7 +70,54 @@
         </tbody>
     </table>
 
-    <!-- REC Details Table -->
+    <!-- JavaScript -->
+    <script>
+        // Fetch the JSON data
+        fetch('centre_onboarding_data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Prepare Counts
+                const completedCount = data.centres.filter(centre => centre.surveyCompleted !== "").length;
+                const totalCount = data.centres.length;
+
+                // Update Dashboard
+                document.getElementById('total-centres').textContent = totalCount;
+                document.getElementById('completed').textContent = completedCount;
+
+                // Populate Centre Details Table
+                const tableBody = document.getElementById('centre-table-body');
+                data.centres.forEach(centre => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${centre.name}</td>
+                        <td>${centre.location}</td>
+                        <td>${centre.model}</td>
+                        <td>${centre.group}</td>
+                        <td>${centre.rec}</td>
+                        <td>${centre.surveyCompleted || 'N/A'}</td>
+                        <td>${centre.deadline}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                // Add Table Sorting
+                const headers = document.querySelectorAll('#centre-table th');
+                headers.forEach(header => {
+                    header.addEventListener('click', () => {
+                        const column = header.getAttribute('data-column');
+                        const rows = Array.from(tableBody.querySelectorAll('tr'));
+                        const sortedRows = rows.sort((a, b) => {
+                            const aText = a.querySelector(`td:nth-child(${Array.from(headers).indexOf(header) + 1})`).textContent.trim();
+                            const bText = b.querySelector(`td:nth-child(${Array.from(headers).indexOf(header) + 1})`).textContent.trim();
+                            return aText.localeCompare(bText);
+                        });
+                        tableBody.innerHTML = '';
+                        sortedRows.forEach(row => tableBody.appendChild(row));
+                    });
+                });
+            })
+            .catch(error => console.error('Error loading JSON data:', error));
+			 <!-- REC Details Table -->
     <h2>Research Ethics Committees (RECs) Overview</h2>
     <table id="rec-overview-table">
         <thead>
@@ -106,6 +164,10 @@
                 });
             })
             .catch(error => console.error('Error loading REC data:', error));
+    </script>
+</body>
+</html>
+
     </script>
 </body>
 </html>
