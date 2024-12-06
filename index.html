@@ -117,56 +117,6 @@
                 });
             })
             .catch(error => console.error('Error loading JSON data:', error));
-			 <!-- REC Details Table -->
-    <h2>Research Ethics Committees (RECs) Overview</h2>
-    <table id="rec-overview-table">
-        <thead>
-            <tr>
-                <th>Required Documents</th>
-                <th>Beaumont Hospital Ethics</th>
-                <th>Cork University Hospital</th>
-                <th>Galway University Hospitals</th>
-                <th>University Hospital Waterford</th>
-                <th>University Hospital Limerick</th>
-                <th>Midland Regional Hospital</th>
-                <th>SJH/TUH Joint REC</th>
-            </tr>
-        </thead>
-        <tbody id="rec-overview-body">
-            <!-- Dynamic rows will be added here -->
-        </tbody>
-    </table>
-
-    <!-- JavaScript -->
-    <script>
-        // Fetch REC JSON data and populate the table
-        fetch('rec_details.json')
-            .then(response => response.json())
-            .then(data => {
-                // Extract unique document names
-                const documentSet = new Set();
-                data.recs.forEach(rec => {
-                    rec.documentsRequired.forEach(doc => documentSet.add(doc));
-                });
-                const documents = Array.from(documentSet);
-
-                // Create table rows dynamically
-                const tableBody = document.getElementById('rec-overview-body');
-                documents.forEach(doc => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<td>${doc}</td>`;
-                    data.recs.forEach(rec => {
-                        const cell = document.createElement('td');
-                        cell.textContent = rec.documentsRequired.includes(doc) ? '*' : '';
-                        row.appendChild(cell);
-                    });
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error loading REC data:', error));
-    </script>
-</body>
-</html>
 
     </script>
 </body>
