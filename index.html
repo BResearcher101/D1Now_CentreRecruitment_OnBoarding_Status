@@ -3,95 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Ethics Committees Overview</title>
+    <title>Centre Onboarding and REC Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
+        /* Basic Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .rec-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .rec-card {
+        th, td {
             border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            padding: 20px;
-            background: #f9f9f9;
+            padding: 8px;
+            text-align: center;
         }
-        .rec-card h3 {
-            margin: 0 0 10px;
-            font-size: 18px;
+        th {
+            background-color: #f4f4f4;
         }
-        .rec-card p {
-            margin: 5px 0;
-        }
-        .rec-card a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .rec-card a:hover {
-            text-decoration: underline;
-        }
-        .rec-card ul {
-            padding-left: 20px;
-        }
-        .rec-card ul li {
-            margin: 5px 0;
+        td {
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <h1>Research Ethics Committees (RECs) Overview</h1>
+    <h1>Centre Onboarding and REC Tracker</h1>
 
-    <div id="rec-container" class="rec-container">
-        <!-- Cards will be dynamically inserted here -->
-    </div>
+    <!-- Existing Tracker and Centre Details Sections -->
+    <h2>Centre Details</h2>
+    <!-- Existing Centre Details table code -->
 
+    <!-- REC Overview Section -->
+    <h2>Research Ethics Committees (RECs) Overview</h2>
+    <table id="rec-overview-table">
+        <thead>
+            <tr>
+                <th>Required Documents</th>
+                <th>Beaumont Hospital Ethics</th>
+                <th>Cork University Hospital</th>
+                <th>Galway University Hospitals</th>
+                <th>University Hospital Waterford</th>
+                <th>University Hospital Limerick</th>
+                <th>Midland Regional Hospital</th>
+                <th>SJH/TUH Joint REC</th>
+            </tr>
+        </thead>
+        <tbody id="rec-overview-body">
+            <!-- Dynamic rows will be added here -->
+        </tbody>
+    </table>
+
+    <!-- JavaScript -->
     <script>
-        // Fetch the REC details JSON
+        // Fetch REC JSON data and populate the table
         fetch('rec_details.json')
             .then(response => response.json())
             .then(data => {
-                const recContainer = document.getElementById('rec-container');
-
-                // Generate a card for each REC
+                // Extract unique document names
+                const documentSet = new Set();
                 data.recs.forEach(rec => {
-                    const card = document.createElement('div');
-                    card.className = 'rec-card';
+                    rec.documentsRequired.forEach(doc => documentSet.add(doc));
+                });
+                const documents = Array.from(documentSet);
 
-                    card.innerHTML = `
-                        <h3>${rec.centreName}</h3>
-                        <p><strong>REC Name:</strong> ${rec.recName}</p>
-                        <p><strong>Submission Deadlines:</strong></p>
-                        <ul>
-                            ${rec.submissionDeadlines.map(deadline => `<li>${deadline}</li>`).join('')}
-                        </ul>
-                        <p><strong>REC Webpage:</strong> ${
-                            rec.recWebpage !== 'Not available.'
-                                ? `<a href="${rec.recWebpage}" target="_blank">Visit REC Webpage</a>`
-                                : 'Not available. Please contact the administration.'
-                        }</p>
-                        <p><strong>Documents Required:</strong></p>
-                        <ul>
-                            ${rec.documentsRequired.map(doc => `<li>${doc}</li>`).join('')}
-                        </ul>
-                    `;
-                    recContainer.appendChild(card);
+                // Create table rows dynamically
+                const tableBody = document.getElementById('rec-overview-body');
+                documents.forEach(doc => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${doc}</td>`;
+                    data.recs.forEach(rec => {
+                        const cell = document.createElement('td');
+                        cell.textContent = rec.documentsRequired.includes(doc) ? '*' : '';
+                        row.appendChild(cell);
+                    });
+                    tableBody.appendChild(row);
                 });
             })
-            .catch(error => console.error('Error loading REC details:', error));
+            .catch(error => console.error('Error loading REC data:', error));
     </script>
 </body>
 </html>
