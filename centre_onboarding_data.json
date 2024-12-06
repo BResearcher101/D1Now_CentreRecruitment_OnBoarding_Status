@@ -50,7 +50,7 @@
             "location": "Dublin",
             "model": "Model 4",
             "group": "RCSI",
-            "rec": "",
+            "rec": "Beaumont REC",
             "interestReceived": "2024-07-12 00:00:00",
             "surveyCompleted": "2024-11-20",
             "deadline": "3rd January 2025 - 10th January 2025\n31st January 2025 - 7th February 2025"
@@ -60,7 +60,7 @@
             "location": "Galway",
             "model": "Model 4",
             "group": "Saolta",
-            "rec": "",
+            "rec": "GUH REC",
             "interestReceived": "",
             "surveyCompleted": "2024-08-23",
             "deadline": ""
@@ -70,7 +70,7 @@
             "location": "Cork",
             "model": "Model 4",
             "group": "South/South West",
-            "rec": "",
+            "rec": "CREC",
             "interestReceived": "2024-07-09 00:00:00",
             "surveyCompleted": "2024-08-26",
             "deadline": "07/01/2025 - 21/01/2025 |"
@@ -80,7 +80,7 @@
             "location": "Waterford",
             "model": "Model 4",
             "group": "South/South West",
-            "rec": "",
+            "rec": "HSE SE Area REC ",
             "interestReceived": "2024-07-17 00:00:00",
             "surveyCompleted": "2024-09-10",
             "deadline": "1 January 2025 & 29th Jan"
@@ -90,7 +90,7 @@
             "location": "Limerick",
             "model": "Model 4",
             "group": "University of Limerick",
-            "rec": "",
+            "rec": "Limerick University REC",
             "interestReceived": "Verbal confirmation",
             "surveyCompleted": "",
             "deadline": "Not available "
@@ -102,7 +102,7 @@
             "group": "Dublin Midlands",
             "rec": "",
             "interestReceived": "2024-07-03 00:00:00",
-            "surveyCompleted": "",
+            "surveyCompleted": "N/A",
             "deadline": "Not available "
         },
         {
@@ -130,10 +130,10 @@
             "location": "Westmeath",
             "model": "Model 3",
             "group": "Ireland East",
-            "rec": "",
+            "rec": "RREC",
             "interestReceived": "2024-07-19 00:00:00",
             "surveyCompleted": "2024-11-20",
-            "deadline": ""
+            "deadline": "19/12"
         },
         {
             "name": "St Luke's Hospital  Kilkenny ",
