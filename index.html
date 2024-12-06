@@ -6,11 +6,11 @@
     <title>Centre Onboarding Progress Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Styles */
+        /* Basic Styles for Visualisation */
         .dashboard {
             display: flex;
             justify-content: space-around;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
         .dashboard-item {
             text-align: center;
@@ -46,11 +46,7 @@
             <p id="total-centres">0</p>
         </div>
         <div class="dashboard-item">
-            <h2>In Progress</h2>
-            <p id="in-progress">0</p>
-        </div>
-        <div class="dashboard-item">
-            <h2>Completed</h2>
+            <h2>Scoping Surveys Completed</h2>
             <p id="completed">0</p>
         </div>
     </div>
@@ -74,21 +70,19 @@
         </tbody>
     </table>
 
-    <!-- Include JavaScript -->
+    <!-- JavaScript -->
     <script>
         // Fetch the JSON data
-        fetch('centre_onboarding_data.json')
+        fetch('updated_centre_onboarding_data.json')
             .then(response => response.json())
             .then(data => {
                 // Prepare Counts
                 const completedCount = data.centres.filter(centre => centre.surveyCompleted !== "").length;
-                const inProgressCount = data.centres.filter(centre => centre.surveyCompleted === "" && centre.interestReceived !== "").length;
                 const totalCount = data.centres.length;
 
                 // Update Dashboard
                 document.getElementById('total-centres').textContent = totalCount;
                 document.getElementById('completed').textContent = completedCount;
-                document.getElementById('in-progress').textContent = inProgressCount;
 
                 // Populate Centre Details Table
                 const tableBody = document.getElementById('centre-table-body');
@@ -100,7 +94,7 @@
                         <td>${centre.model}</td>
                         <td>${centre.group}</td>
                         <td>${centre.rec}</td>
-                        <td>${centre.surveyCompleted || 'Not Completed'}</td>
+                        <td>${centre.surveyCompleted || 'N/A'}</td>
                         <td>${centre.deadline}</td>
                     `;
                     tableBody.appendChild(row);
