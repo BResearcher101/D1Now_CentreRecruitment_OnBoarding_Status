@@ -3,142 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centre Onboarding Progress Tracker</title>
+    <title>Research Ethics Committees Overview</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Basic Styles */
-        .dashboard {
-            display: flex;
-            justify-content: space-around;
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
             margin-bottom: 20px;
         }
-        .dashboard-item {
-            text-align: center;
+        .rec-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .rec-card {
             border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            width: 30%;
-            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            background: #f9f9f9;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .rec-card h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+        .rec-card p {
+            margin: 5px 0;
         }
-        th {
-            background-color: #f4f4f4;
+        .rec-card a {
+            color: #007bff;
+            text-decoration: none;
         }
-        .docs-list {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
+        .rec-card a:hover {
+            text-decoration: underline;
+        }
+        .rec-card ul {
+            padding-left: 20px;
+        }
+        .rec-card ul li {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <h1>Centre Onboarding Progress Tracker</h1>
+    <h1>Research Ethics Committees (RECs) Overview</h1>
 
-    <!-- Dashboard Summary -->
-    <div class="dashboard">
-        <div class="dashboard-item">
-            <h2>Total Centres</h2>
-            <p id="total-centres">0</p>
-        </div>
-        <div class="dashboard-item">
-            <h2>Scoping Surveys Completed</h2>
-            <p id="completed">0</p>
-        </div>
+    <div id="rec-container" class="rec-container">
+        <!-- Cards will be dynamically inserted here -->
     </div>
 
-    <!-- Centre Details Table -->
-    <h2>Centre Details</h2>
-    <table id="centre-table">
-        <thead>
-            <tr>
-                <th>Centre Name</th>
-                <th>Location</th>
-                <th>Model</th>
-                <th>Trust/Group</th>
-                <th>REC</th>
-                <th>Scoping Survey Completed</th>
-                <th>Application Deadline</th>
-            </tr>
-        </thead>
-        <tbody id="centre-table-body">
-            <!-- Dynamic rows will be added here -->
-        </tbody>
-    </table>
-
-    <!-- REC Details Table -->
-    <h2>Research Ethics Committees (RECs) Overview</h2>
-    <table id="rec-table">
-        <thead>
-            <tr>
-                <th>Centre Name</th>
-                <th>REC Name</th>
-                <th>Submission Deadlines</th>
-                <th>REC Webpage</th>
-                <th>Documents Required</th>
-            </tr>
-        </thead>
-        <tbody id="rec-table-body">
-            <!-- Dynamic rows will be added here -->
-        </tbody>
-    </table>
-
-    <!-- JavaScript -->
     <script>
-        // Fetch data for the first table
-        fetch('centre_onboarding_data.json')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('centre-table-body');
-                const totalCount = data.centres.length;
-                const completedCount = data.centres.filter(centre => centre.surveyCompleted !== "").length;
-
-                document.getElementById('total-centres').textContent = totalCount;
-                document.getElementById('completed').textContent = completedCount;
-
-                data.centres.forEach(centre => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${centre.name}</td>
-                        <td>${centre.location}</td>
-                        <td>${centre.model}</td>
-                        <td>${centre.group}</td>
-                        <td>${centre.rec}</td>
-                        <td>${centre.surveyCompleted || 'N/A'}</td>
-                        <td>${centre.deadline}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error loading Centre data:', error));
-
-        // Fetch data for the second table (REC details)
+        // Fetch the REC details JSON
         fetch('rec_details.json')
             .then(response => response.json())
             .then(data => {
-                const tableBody = document.getElementById('rec-table-body');
+                const recContainer = document.getElementById('rec-container');
+
+                // Generate a card for each REC
                 data.recs.forEach(rec => {
-                    const row = document.createElement('tr');
-                    const docsList = rec.documentsRequired.map(doc => `<li>${doc}</li>`).join('');
-                    row.innerHTML = `
-                        <td>${rec.centreName}</td>
-                        <td>${rec.recName}</td>
-                        <td>${rec.submissionDeadlines.join('<br>')}</td>
-                        <td>${rec.recWebpage !== 'Not available' ? `<a href="${rec.recWebpage}" target="_blank">Link</a>` : 'Not available'}</td>
-                        <td><ul class="docs-list">${docsList}</ul></td>
+                    const card = document.createElement('div');
+                    card.className = 'rec-card';
+
+                    card.innerHTML = `
+                        <h3>${rec.centreName}</h3>
+                        <p><strong>REC Name:</strong> ${rec.recName}</p>
+                        <p><strong>Submission Deadlines:</strong></p>
+                        <ul>
+                            ${rec.submissionDeadlines.map(deadline => `<li>${deadline}</li>`).join('')}
+                        </ul>
+                        <p><strong>REC Webpage:</strong> ${
+                            rec.recWebpage !== 'Not available.'
+                                ? `<a href="${rec.recWebpage}" target="_blank">Visit REC Webpage</a>`
+                                : 'Not available. Please contact the administration.'
+                        }</p>
+                        <p><strong>Documents Required:</strong></p>
+                        <ul>
+                            ${rec.documentsRequired.map(doc => `<li>${doc}</li>`).join('')}
+                        </ul>
                     `;
-                    tableBody.appendChild(row);
+                    recContainer.appendChild(card);
                 });
             })
-            .catch(error => console.error('Error loading REC data:', error));
+            .catch(error => console.error('Error loading REC details:', error));
     </script>
 </body>
 </html>
