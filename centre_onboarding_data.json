@@ -10,7 +10,7 @@
             "location": "Dublin",
             "model": "Model 4",
             "group": "Dublin Midlands",
-            "contact": "Dr. Kevin B. Moore",
+            "rec": "SJH REC",
             "interestReceived": "2024-07-03 00:00:00",
             "surveyCompleted": "",
             "deadline": "No deadline. Meetings 22 January 2025\n26 February 2025"
@@ -20,7 +20,7 @@
             "location": "Dublin",
             "model": "Model 4",
             "group": "Dublin Midlands",
-            "contact": "Niamh Phelan",
+            "rec": "SJH REC",
             "interestReceived": "",
             "surveyCompleted": "2024-11-21",
             "deadline": "No deadline. Meetings 22 January 2025\n26 February 2025"
@@ -30,7 +30,7 @@
             "location": "Dublin",
             "model": "Model 4",
             "group": "Ireland East",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -40,7 +40,7 @@
             "location": "Dublin",
             "model": "Model 4",
             "group": "Ireland East",
-            "contact": "O'Dwyer, Brid (RGN) ",
+            "rec": "SVH REC",
             "interestReceived": "",
             "surveyCompleted": "2024-11-08",
             "deadline": "9th December \u2013 16th January"
@@ -50,7 +50,7 @@
             "location": "Dublin",
             "model": "Model 4",
             "group": "RCSI",
-            "contact": "",
+            "rec": "",
             "interestReceived": "2024-07-12 00:00:00",
             "surveyCompleted": "2024-11-20",
             "deadline": "3rd January 2025 - 10th January 2025\n31st January 2025 - 7th February 2025"
@@ -60,17 +60,17 @@
             "location": "Galway",
             "model": "Model 4",
             "group": "Saolta",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "2024-08-23",
-            "deadline": "NA"
+            "deadline": ""
         },
         {
             "name": "Cork University Hospital",
             "location": "Cork",
             "model": "Model 4",
             "group": "South/South West",
-            "contact": "Maura Moriarty ",
+            "rec": "",
             "interestReceived": "2024-07-09 00:00:00",
             "surveyCompleted": "2024-08-26",
             "deadline": "07/01/2025 - 21/01/2025 |"
@@ -80,7 +80,7 @@
             "location": "Waterford",
             "model": "Model 4",
             "group": "South/South West",
-            "contact": "Triona O'Shea",
+            "rec": "",
             "interestReceived": "2024-07-17 00:00:00",
             "surveyCompleted": "2024-09-10",
             "deadline": "1 January 2025 & 29th Jan"
@@ -90,7 +90,7 @@
             "location": "Limerick",
             "model": "Model 4",
             "group": "University of Limerick",
-            "contact": "",
+            "rec": "",
             "interestReceived": "Verbal confirmation",
             "surveyCompleted": "",
             "deadline": "Not available "
@@ -100,7 +100,7 @@
             "location": "Dublin",
             "model": "Model 3",
             "group": "Dublin Midlands",
-            "contact": "Dr. Kevin B. Moore",
+            "rec": "",
             "interestReceived": "2024-07-03 00:00:00",
             "surveyCompleted": "",
             "deadline": "Not available "
@@ -110,7 +110,7 @@
             "location": "Offaly",
             "model": "Model 3",
             "group": "Dublin Midlands",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -120,7 +120,7 @@
             "location": "Laois",
             "model": "Model 3",
             "group": "Dublin Midlands",
-            "contact": "",
+            "rec": "",
             "interestReceived": "2024-07-23 00:00:00",
             "surveyCompleted": "2024-09-24",
             "deadline": ""
@@ -130,17 +130,17 @@
             "location": "Westmeath",
             "model": "Model 3",
             "group": "Ireland East",
-            "contact": "",
+            "rec": "",
             "interestReceived": "2024-07-19 00:00:00",
             "surveyCompleted": "2024-11-20",
-            "deadline": "19-Dec-2024"
+            "deadline": ""
         },
         {
             "name": "St Luke's Hospital  Kilkenny ",
             "location": "Kilkenny",
             "model": "Model 3",
             "group": "Ireland East",
-            "contact": "Maire O'Donnel",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -150,7 +150,7 @@
             "location": "Meath",
             "model": "Model 3",
             "group": "Ireland East",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -160,7 +160,7 @@
             "location": "Wexford",
             "model": "Model 3",
             "group": "Ireland East",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -170,7 +170,7 @@
             "location": "Louth",
             "model": "Model 3",
             "group": "RCSI",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -180,7 +180,7 @@
             "location": "Cavan",
             "model": "Model 3",
             "group": "RCSI",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -190,7 +190,7 @@
             "location": "Dublin",
             "model": "Model 3",
             "group": "RCSI",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -200,7 +200,7 @@
             "location": "Sligo",
             "model": "Model 3",
             "group": "Saolta",
-            "contact": "Siobhan Bacon",
+            "rec": "",
             "interestReceived": "2024-07-03 00:00:00",
             "surveyCompleted": "2024-09-05",
             "deadline": "16th January 2025/20th March 2025"
@@ -210,7 +210,7 @@
             "location": "Donegal",
             "model": "Model 3",
             "group": "Saolta",
-            "contact": "",
+            "rec": "",
             "interestReceived": "2024-07-03 00:00:00",
             "surveyCompleted": "",
             "deadline": ""
@@ -220,7 +220,7 @@
             "location": "Galway",
             "model": "Model 3",
             "group": "Saolta",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -230,7 +230,7 @@
             "location": "Mayo",
             "model": "Model 3",
             "group": "Saolta",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -240,7 +240,7 @@
             "location": "Tipperary",
             "model": "Model 3",
             "group": "South/South West",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -250,7 +250,7 @@
             "location": "Kerry",
             "model": "Model 3",
             "group": "South/South West",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -260,7 +260,7 @@
             "location": "Tipperary",
             "model": "Model 3",
             "group": "South/South West",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -270,7 +270,7 @@
             "location": "Cork",
             "model": "Model 3",
             "group": "South/South West",
-            "contact": "",
+            "rec": "",
             "interestReceived": "",
             "surveyCompleted": "",
             "deadline": ""
@@ -280,7 +280,7 @@
             "location": "Dublin",
             "model": "Model 2",
             "group": "Ireland East",
-            "contact": "Amanda Rhynehart ",
+            "rec": "SVH REC",
             "interestReceived": "2024-06-05 00:00:00",
             "surveyCompleted": "2024-08-26",
             "deadline": "9th December \u2013 16th January"
