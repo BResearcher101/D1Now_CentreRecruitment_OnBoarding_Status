@@ -7,12 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Styles */
-        .dashboard, .rec-summary {
-            margin: 20px 0;
-        }
         .dashboard {
             display: flex;
             justify-content: space-around;
+            margin: 20px 0;
         }
         .dashboard-item {
             text-align: center;
@@ -22,21 +20,19 @@
             width: 30%;
             background-color: #f9f9f9;
         }
-        .rec-section {
-            margin: 20px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        .rec-card {
+        th, td {
             border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
-            background-color: #f9f9f9;
+            padding: 8px;
+            text-align: left;
+            cursor: pointer; /* Pointer for sortable columns */
         }
-        .rec-card h3 {
-            margin: 0 0 10px;
-        }
-        .rec-card ul {
-            padding-left: 20px;
+        th {
+            background-color: #f4f4f4;
         }
     </style>
 </head>
@@ -59,81 +55,74 @@
         </div>
     </div>
 
-    <!-- REC Details Section -->
-    <div class="rec-section">
-        <h2>REC Details</h2>
+    <!-- Centre Details Table -->
+    <h2>Centre Details</h2>
+    <table id="centre-table">
+        <thead>
+            <tr>
+                <th data-column="name">Centre Name</th>
+                <th data-column="location">Location</th>
+                <th data-column="model">Model</th>
+                <th data-column="group">Trust/Group</th>
+                <th data-column="rec">REC</th>
+                <th data-column="surveyCompleted">Scoping Survey Completed</th>
+                <th data-column="deadline">Application Deadline</th>
+            </tr>
+        </thead>
+        <tbody id="centre-table-body">
+            <!-- Dynamic rows will be added here -->
+        </tbody>
+    </table>
 
-        <!-- Each REC Card -->
-        <div class="rec-card">
-            <h3>Beaumont Hospital</h3>
-            <p><strong>REC Name:</strong> Beaumont REC</p>
-            <p><strong>Submission Deadlines:</strong></p>
-            <ul>
-                <li>3rd January 2025 - 10th January 2025</li>
-                <li>31st January 2025 - 7th February 2025</li>
-            </ul>
-            <p><strong>Documents Required:</strong></p>
-            <ul>
-                <li>Completed application form</li>
-                <li>Study protocol</li>
-                <li>Participant information sheets and consent forms</li>
-                <li>Investigator's brochure (if applicable)</li>
-                <li>Data protection impact assessment</li>
-                <li>Proof of insurance</li>
-                <li>CVs of principal investigators</li>
-                <li>Recruitment materials</li>
-            </ul>
-        </div>
-
-        <!-- Repeat for Each REC -->
-        <div class="rec-card">
-            <h3>Cork University Hospital</h3>
-            <p><strong>REC Name:</strong> CREC</p>
-            <p><strong>Submission Deadlines:</strong></p>
-            <ul>
-                <li>7th January 2025 - 21st January 2025</li>
-            </ul>
-            <p><strong>Documents Required:</strong></p>
-            <ul>
-                <li>Completed application form</li>
-                <li>Study protocol</li>
-                <li>Participant information sheets and consent forms</li>
-                <li>Investigator's brochure (if applicable)</li>
-                <li>Data protection impact assessment</li>
-                <li>Proof of insurance</li>
-                <li>CVs of principal investigators</li>
-                <li>Recruitment materials</li>
-            </ul>
-        </div>
-
-        <!-- Additional REC summaries -->
-
-        <div class="rec-card">
-            <h3>University College Hospital Galway</h3>
-            <p><strong>REC Name:</strong> GUH REC</p>
-            <p><strong>Submission Deadlines:</strong> Not specified for Jan-March.</p>
-            <p><strong>Documents Required:</strong></p>
-            <ul>
-                <li>Completed application form</li>
-                <li>Study protocol</li>
-                <li>Participant information sheets and consent forms</li>
-                <li>Investigator's brochure (if applicable)</li>
-                <li>Data protection impact assessment</li>
-                <li>Proof of insurance</li>
-                <li>CVs of principal investigators</li>
-                <li>Recruitment materials</li>
-            </ul>
-        </div>
-
-        <!-- Add other hospitals in the same structure -->
-
-    </div>
-
-    <!-- Include Previous Sections and Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include JavaScript -->
     <script>
-        // Existing logic for dynamic loading and chart population
-        // Refer to the earlier updates
+        // Fetch the JSON data
+        fetch('centre_onboarding_data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Prepare Counts
+                const completedCount = data.centres.filter(centre => centre.surveyCompleted !== "").length;
+                const inProgressCount = data.centres.filter(centre => centre.surveyCompleted === "" && centre.interestReceived !== "").length;
+                const totalCount = data.centres.length;
+
+                // Update Dashboard
+                document.getElementById('total-centres').textContent = totalCount;
+                document.getElementById('completed').textContent = completedCount;
+                document.getElementById('in-progress').textContent = inProgressCount;
+
+                // Populate Centre Details Table
+                const tableBody = document.getElementById('centre-table-body');
+                data.centres.forEach(centre => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${centre.name}</td>
+                        <td>${centre.location}</td>
+                        <td>${centre.model}</td>
+                        <td>${centre.group}</td>
+                        <td>${centre.rec}</td>
+                        <td>${centre.surveyCompleted || 'Not Completed'}</td>
+                        <td>${centre.deadline}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                // Add Table Sorting
+                const headers = document.querySelectorAll('#centre-table th');
+                headers.forEach(header => {
+                    header.addEventListener('click', () => {
+                        const column = header.getAttribute('data-column');
+                        const rows = Array.from(tableBody.querySelectorAll('tr'));
+                        const sortedRows = rows.sort((a, b) => {
+                            const aText = a.querySelector(`td:nth-child(${Array.from(headers).indexOf(header) + 1})`).textContent.trim();
+                            const bText = b.querySelector(`td:nth-child(${Array.from(headers).indexOf(header) + 1})`).textContent.trim();
+                            return aText.localeCompare(bText);
+                        });
+                        tableBody.innerHTML = '';
+                        sortedRows.forEach(row => tableBody.appendChild(row));
+                    });
+                });
+            })
+            .catch(error => console.error('Error loading JSON data:', error));
     </script>
 </body>
 </html>
