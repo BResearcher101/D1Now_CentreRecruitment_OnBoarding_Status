@@ -1,0 +1,133 @@
+{
+    "recs": [
+        {
+            "centreName": "Beaumont Hospital, Dublin",
+            "recName": "Beaumont Hospital Ethics (Medical Research) Committee",
+            "submissionDeadlines": [
+                "3rd January 2025 \u2013 10th January 2025",
+                "31st January 2025 \u2013 7th February 2025"
+            ],
+            "recWebpage": "https://www.beaumontethics.ie/",
+            "documentsRequired": [
+                "Completed application form",
+                "Study protocol",
+                "Participant information sheets and consent forms",
+                "Investigator's brochure (if applicable)",
+                "Data Protection Impact Assessment (DPIA)",
+                "Proof of insurance",
+                "CVs of principal investigators",
+                "Recruitment materials"
+            ]
+        },
+        {
+            "centreName": "Cork University Hospital, Cork",
+            "recName": "Clinical Research Ethics Committee (CREC) of the Cork Teaching Hospitals",
+            "submissionDeadlines": [
+                "7th January 2025 \u2013 21st January 2025"
+            ],
+            "recWebpage": "https://www.ucc.ie/en/crec/",
+            "documentsRequired": [
+                "Signed application form",
+                "Study protocol",
+                "Participant information sheets and consent forms",
+                "Investigator's brochure (if applicable)",
+                "Data Protection Impact Assessment",
+                "Proof of insurance",
+                "CVs of chief investigator",
+                "Recruitment materials"
+            ]
+        },
+        {
+            "centreName": "University College Hospital Galway, Galway",
+            "recName": "Galway University Hospitals Research Ethics Committee (GUH REC)",
+            "submissionDeadlines": [
+                "Not specified for January \u2013 March 2025. Please contact the REC directly for current deadlines."
+            ],
+            "recWebpage": "Not available. Please contact the hospital administration for REC details.",
+            "documentsRequired": [
+                "Completed application form",
+                "Study protocol",
+                "Participant information sheets and consent forms",
+                "Investigator's brochure (if applicable)",
+                "Data Protection Impact Assessment",
+                "Proof of insurance",
+                "CVs of principal investigators",
+                "Recruitment materials"
+            ]
+        },
+        {
+            "centreName": "University Hospital Waterford, Waterford",
+            "recName": "HSE South East Area Research Ethics Committee",
+            "submissionDeadlines": [
+                "1st January 2025",
+                "29th January 2025"
+            ],
+            "recWebpage": "Not available. Please contact the hospital administration for REC details.",
+            "documentsRequired": [
+                "Completed application form",
+                "Study protocol",
+                "Participant information sheets and consent forms",
+                "Investigator's brochure (if applicable)",
+                "Data Protection Impact Assessment",
+                "Proof of insurance",
+                "CVs of principal investigators",
+                "Recruitment materials"
+            ]
+        },
+        {
+            "centreName": "University Hospital Limerick, Limerick",
+            "recName": "University of Limerick Research Ethics Committee",
+            "submissionDeadlines": [
+                "Not available. Please contact the REC directly for current deadlines."
+            ],
+            "recWebpage": "Not available. Please contact the university administration for REC details.",
+            "documentsRequired": [
+                "Completed application form",
+                "Study protocol",
+                "Participant information sheets and consent forms",
+                "Investigator's brochure (if applicable)",
+                "Data Protection Impact Assessment",
+                "Proof of insurance",
+                "CVs of principal investigators",
+                "Recruitment materials"
+            ]
+        },
+        {
+            "centreName": "Midland Regional Hospital Mullingar, Westmeath",
+            "recName": "Regional Research Ethics Committee (RREC)",
+            "submissionDeadlines": [
+                "19th December 2024 (No deadlines specified for January \u2013 March 2025)"
+            ],
+            "recWebpage": "Not available. Please contact the hospital administration for REC details.",
+            "documentsRequired": [
+                "Completed application form",
+                "Study protocol",
+                "Participant information sheets and consent forms",
+                "Investigator's brochure (if applicable)",
+                "Data Protection Impact Assessment",
+                "Proof of insurance",
+                "CVs of principal investigators",
+                "Recruitment materials"
+            ]
+        },
+        {
+            "centreName": "Tallaght University Hospital & St James's Hospital, Dublin",
+            "recName": "SJH/TUH Joint Research Ethics Committee (JREC)",
+            "submissionDeadlines": [
+                "22nd January 2025",
+                "26th February 2025"
+            ],
+            "recWebpage": "https://hseresearch.ie/research-ethics/research-ethics-committees-cho-based-research/sjh-amnch-joint-research-ethics-committee/",
+            "documentsRequired": [
+                "Completed application form",
+                "Study protocol",
+                "Participant information sheets and consent forms",
+                "Investigator's brochure (if applicable)",
+                "Data Protection Impact Assessment",
+                "Proof of insurance",
+                "CVs of principal investigators",
+                "Recruitment materials"
+            ]
+        }
+    ]
+}
