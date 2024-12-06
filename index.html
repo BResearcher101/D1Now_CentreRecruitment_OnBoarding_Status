@@ -38,16 +38,6 @@
         th {
             background-color: #f4f4f4;
         }
-        .progress-bar {
-            width: 100%;
-            background: #f3f3f3;
-            border: 1px solid #ccc;
-        }
-        .progress {
-            height: 20px;
-            background: green;
-            width: 0%;
-        }
     </style>
 </head>
 <body>
@@ -96,66 +86,57 @@
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Data fetched from JSON
-        const onboardingData = {
-            "progressSummary": {
-                "totalCentres": 28,
-                "interestReceived": 11,
-                "surveyCompleted": 10
-            },
-            "centres": [
-                {"name": "Tallaght University Hospital", "location": "Dublin", "model": "Model 4", "group": "Dublin Midlands", "contact": "Dr. Kevin B. Moore", "status": "Interest Received", "deadline": "No deadline. Meetings 22 Jan 2025"},
-                {"name": "St James's Hospital", "location": "Dublin", "model": "Model 4", "group": "Dublin Midlands", "contact": "Niamh Phelan", "status": "Survey Completed", "deadline": "No deadline. Meetings 22 Jan 2025"},
-                {"name": "Mater Misericordiae", "location": "Dublin", "model": "Model 4", "group": "Ireland East", "contact": "N/A", "status": "Pending", "deadline": "TBD"},
-                {"name": "St Vincent Hospital", "location": "Dublin", "model": "Model 4", "group": "Ireland East", "contact": "Brid O'Dwyer", "status": "Survey Completed", "deadline": "9 Dec 2024 – 16 Jan 2025"}
-            ]
-        };
+        // Fetch the JSON data
+        fetch('centre_onboarding_data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Update Dashboard Summary
+                document.getElementById('total-centres').textContent = data.progressSummary.totalCentres;
+                document.getElementById('interest-received').textContent = data.progressSummary.interestReceived;
+                document.getElementById('survey-completed').textContent = data.progressSummary.surveyCompleted;
 
-        // Update Dashboard Summary
-        document.getElementById('total-centres').textContent = onboardingData.progressSummary.totalCentres;
-        document.getElementById('interest-received').textContent = onboardingData.progressSummary.interestReceived;
-        document.getElementById('survey-completed').textContent = onboardingData.progressSummary.surveyCompleted;
+                // Populate Centre Details Table
+                const tableBody = document.getElementById('centre-table-body');
+                data.centres.forEach(centre => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${centre.name}</td>
+                        <td>${centre.location}</td>
+                        <td>${centre.model}</td>
+                        <td>${centre.group}</td>
+                        <td>${centre.contact}</td>
+                        <td>${centre.surveyCompleted ? 'Survey Completed' : (centre.interestReceived ? 'Interest Received' : 'Pending')}</td>
+                        <td>${centre.deadline}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
 
-        // Populate Centre Details Table
-        const tableBody = document.getElementById('centre-table-body');
-        onboardingData.centres.forEach(centre => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${centre.name}</td>
-                <td>${centre.location}</td>
-                <td>${centre.model}</td>
-                <td>${centre.group}</td>
-                <td>${centre.contact}</td>
-                <td>${centre.status}</td>
-                <td>${centre.deadline}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-
-        // Visualisation: Progress Chart
-        const ctx = document.getElementById('progressChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Interest Received', 'Survey Completed', 'Remaining Centres'],
-                datasets: [{
-                    data: [
-                        onboardingData.progressSummary.interestReceived,
-                        onboardingData.progressSummary.surveyCompleted,
-                        onboardingData.progressSummary.totalCentres - onboardingData.progressSummary.interestReceived
-                    ],
-                    backgroundColor: ['#4caf50', '#ff9800', '#f44336']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
+                // Visualisation: Progress Chart
+                const ctx = document.getElementById('progressChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Interest Received', 'Survey Completed', 'Remaining Centres'],
+                        datasets: [{
+                            data: [
+                                data.progressSummary.interestReceived,
+                                data.progressSummary.surveyCompleted,
+                                data.progressSummary.totalCentres - data.progressSummary.interestReceived
+                            ],
+                            backgroundColor: ['#4caf50', '#ff9800', '#f44336']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
+            })
+            .catch(error => console.error('Error loading JSON data:', error));
     </script>
 </body>
 </html>
