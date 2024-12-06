@@ -32,6 +32,7 @@
         }
         th {
             background-color: #f4f4f4;
+            cursor: pointer; /* Pointer cursor for sortable columns */
         }
         td {
             font-size: 14px;
@@ -58,13 +59,13 @@
     <table id="centre-table">
         <thead>
             <tr>
-                <th>Centre Name</th>
-                <th>Location</th>
-                <th>Model</th>
-                <th>Trust/Group</th>
-                <th>REC</th>
-                <th>Scoping Survey Completed</th>
-                <th>Application Deadline</th>
+                <th data-column="name">Centre Name</th>
+                <th data-column="location">Location</th>
+                <th data-column="model">Model</th>
+                <th data-column="group">Trust/Group</th>
+                <th data-column="rec">REC</th>
+                <th data-column="surveyCompleted">Scoping Survey Completed</th>
+                <th data-column="deadline">Application Deadline</th>
             </tr>
         </thead>
         <tbody id="centre-table-body">
@@ -118,6 +119,22 @@
                         <td>${centre.deadline}</td>
                     `;
                     tableBody.appendChild(row);
+                });
+
+                // Add Sorting to Centre Details Table
+                const headers = document.querySelectorAll('#centre-table th');
+                headers.forEach(header => {
+                    header.addEventListener('click', () => {
+                        const column = header.getAttribute('data-column');
+                        const rows = Array.from(tableBody.querySelectorAll('tr'));
+                        const sortedRows = rows.sort((a, b) => {
+                            const aText = a.querySelector(`td:nth-child(${Array.from(headers).indexOf(header) + 1})`).textContent.trim();
+                            const bText = b.querySelector(`td:nth-child(${Array.from(headers).indexOf(header) + 1})`).textContent.trim();
+                            return aText.localeCompare(bText);
+                        });
+                        tableBody.innerHTML = '';
+                        sortedRows.forEach(row => tableBody.appendChild(row));
+                    });
                 });
             })
             .catch(error => console.error('Error loading Centre Details data:', error));
