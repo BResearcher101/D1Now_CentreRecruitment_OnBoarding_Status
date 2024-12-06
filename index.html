@@ -3,10 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recruitment and Clinic Tracker</title>
+    <title>Centre Onboarding Progress Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Inline CSS in case you don't want to use an external styles.css file */
+        /* Basic Styles for Visualisation */
+        .dashboard {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .dashboard-item {
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            width: 30%;
+            background-color: #f9f9f9;
+        }
+        .chart-container {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
         .progress-bar {
             width: 100%;
             background: #f3f3f3;
@@ -17,64 +48,114 @@
             background: green;
             width: 0%;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
     </style>
 </head>
 <body>
-    <h1>Recruitment and Clinic Onboarding Progress</h1>
+    <h1>Centre Onboarding Progress Tracker</h1>
 
-    <!-- Recruitment Progress -->
-    <h2>Recruitment Progress</h2>
-    <div class="progress-bar">
-        <div class="progress" id="recruitment-progress"></div>
+    <!-- Dashboard Summary -->
+    <div class="dashboard">
+        <div class="dashboard-item">
+            <h2>Total Centres</h2>
+            <p id="total-centres">0</p>
+        </div>
+        <div class="dashboard-item">
+            <h2>Interest Received</h2>
+            <p id="interest-received">0</p>
+        </div>
+        <div class="dashboard-item">
+            <h2>Surveys Completed</h2>
+            <p id="survey-completed">0</p>
+        </div>
     </div>
 
-    <!-- Clinic List -->
-    <h2>Clinics</h2>
+    <!-- Progress Chart -->
+    <div class="chart-container">
+        <canvas id="progressChart"></canvas>
+    </div>
+
+    <!-- Centre Details Table -->
+    <h2>Centre Details</h2>
     <table>
         <thead>
             <tr>
-                <th>Clinic Name</th>
+                <th>Centre Name</th>
+                <th>Location</th>
+                <th>Model</th>
+                <th>Trust/Group</th>
+                <th>Contact Person</th>
                 <th>Status</th>
+                <th>Application Deadline</th>
             </tr>
         </thead>
-        <tbody id="clinic-table-body">
-            <!-- Rows will be dynamically added here -->
+        <tbody id="centre-table-body">
+            <!-- Dynamic rows will be added here -->
         </tbody>
     </table>
 
     <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Fetch the JSON data
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                // Update the recruitment progress bar
-                const progressBar = document.getElementById('recruitment-progress');
-                const progressPercent = (data.recruitment.current / data.recruitment.total) * 100;
-                progressBar.style.width = progressPercent + '%';
-                progressBar.textContent = progressPercent.toFixed(1) + '%';
+        // Data fetched from JSON
+        const onboardingData = {
+            "progressSummary": {
+                "totalCentres": 28,
+                "interestReceived": 11,
+                "surveyCompleted": 10
+            },
+            "centres": [
+                {"name": "Tallaght University Hospital", "location": "Dublin", "model": "Model 4", "group": "Dublin Midlands", "contact": "Dr. Kevin B. Moore", "status": "Interest Received", "deadline": "No deadline. Meetings 22 Jan 2025"},
+                {"name": "St James's Hospital", "location": "Dublin", "model": "Model 4", "group": "Dublin Midlands", "contact": "Niamh Phelan", "status": "Survey Completed", "deadline": "No deadline. Meetings 22 Jan 2025"},
+                {"name": "Mater Misericordiae", "location": "Dublin", "model": "Model 4", "group": "Ireland East", "contact": "N/A", "status": "Pending", "deadline": "TBD"},
+                {"name": "St Vincent Hospital", "location": "Dublin", "model": "Model 4", "group": "Ireland East", "contact": "Brid O'Dwyer", "status": "Survey Completed", "deadline": "9 Dec 2024 – 16 Jan 2025"}
+            ]
+        };
 
-                // Populate the clinic table
-                const clinicTableBody = document.getElementById('clinic-table-body');
-                data.clinics.forEach(clinic => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<td>${clinic.name}</td><td>${clinic.status}</td>`;
-                    clinicTableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error loading JSON data:', error));
+        // Update Dashboard Summary
+        document.getElementById('total-centres').textContent = onboardingData.progressSummary.totalCentres;
+        document.getElementById('interest-received').textContent = onboardingData.progressSummary.interestReceived;
+        document.getElementById('survey-completed').textContent = onboardingData.progressSummary.surveyCompleted;
+
+        // Populate Centre Details Table
+        const tableBody = document.getElementById('centre-table-body');
+        onboardingData.centres.forEach(centre => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${centre.name}</td>
+                <td>${centre.location}</td>
+                <td>${centre.model}</td>
+                <td>${centre.group}</td>
+                <td>${centre.contact}</td>
+                <td>${centre.status}</td>
+                <td>${centre.deadline}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Visualisation: Progress Chart
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Interest Received', 'Survey Completed', 'Remaining Centres'],
+                datasets: [{
+                    data: [
+                        onboardingData.progressSummary.interestReceived,
+                        onboardingData.progressSummary.surveyCompleted,
+                        onboardingData.progressSummary.totalCentres - onboardingData.progressSummary.interestReceived
+                    ],
+                    backgroundColor: ['#4caf50', '#ff9800', '#f44336']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
