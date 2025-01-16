@@ -190,10 +190,10 @@
             "location": "Dublin",
             "model": "Model 3",
             "group": "RCSI",
-            "rec": "",
+            "rec": "Connolly REC",
             "interestReceived": "Yes",
             "surveyCompleted": "Not Yet",
-            "deadline": ""
+            "deadline": "TBC"
         },
         {
             "name": "Sligo University Hospital",
